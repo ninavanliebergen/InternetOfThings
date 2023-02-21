@@ -21,3 +21,5 @@ How to start this project?
 2. run: docker-compose up
 3. open nodered: http://localhost:1880 
 4. import the json flow to nodered
+5. run the python script on your local machine to simulate the sensors
+6. Have fun!
