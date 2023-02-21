@@ -1,0 +1,380 @@
+[
+    {
+        "id": "3df6adc1ab7c8928",
+        "type": "tab",
+        "label": "Emission monitoring",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "abbe2f950db30f0b",
+        "type": "mqtt in",
+        "z": "3df6adc1ab7c8928",
+        "name": "",
+        "topic": "/household/water/+",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "155a6ded3bdaa356",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 260,
+        "wires": [
+            [
+                "8498be458603ac50"
+            ]
+        ]
+    },
+    {
+        "id": "7fa88cd7e38743ca",
+        "type": "debug",
+        "z": "3df6adc1ab7c8928",
+        "name": "debug 8",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "451f54612e3964f2",
+        "type": "function",
+        "z": "3df6adc1ab7c8928",
+        "name": "sensors",
+        "func": "var payload = msg.payload\nif(payload >= 75)\n{\nmsg.payload = \n{\n    transport:payload,\n    location:msg.topic.split(\"/\")[2],\n    state:\"high\",\n    unit: \"ppm\",\n    sensor:msg.topic.split(\"/\")[3]\n}\n}\nif (payload < 75) {\n    msg.payload =\n    {\n       transport:payload,\n        location: msg.topic.split(\"/\")[2],\n        state: \"normal\",\n        unit: \"ppm\",\n        sensor: msg.topic.split(\"/\")[3]\n    }\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 80,
+        "wires": [
+            [
+                "7fa88cd7e38743ca"
+            ]
+        ]
+    },
+    {
+        "id": "d2d65e7a584f01b5",
+        "type": "mqtt in",
+        "z": "3df6adc1ab7c8928",
+        "name": "",
+        "topic": "/household/gas/+",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "155a6ded3bdaa356",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 100,
+        "y": 320,
+        "wires": [
+            [
+                "be9c0399cad36de1"
+            ]
+        ]
+    },
+    {
+        "id": "3f127d7f328b4c54",
+        "type": "mqtt in",
+        "z": "3df6adc1ab7c8928",
+        "name": "",
+        "topic": "/household/food/+",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "155a6ded3bdaa356",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 140,
+        "wires": [
+            [
+                "2f13a48adfa371ee"
+            ]
+        ]
+    },
+    {
+        "id": "caa191566efe6e9a",
+        "type": "mqtt in",
+        "z": "3df6adc1ab7c8928",
+        "name": "",
+        "topic": "/household/transport/#",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "155a6ded3bdaa356",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 80,
+        "wires": [
+            [
+                "451f54612e3964f2"
+            ]
+        ]
+    },
+    {
+        "id": "a6c7efc3ccc519e1",
+        "type": "mqtt in",
+        "z": "3df6adc1ab7c8928",
+        "name": "",
+        "topic": "/household/wastebin/+",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "155a6ded3bdaa356",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 200,
+        "wires": [
+            [
+                "3ede4038373d75a4"
+            ]
+        ]
+    },
+    {
+        "id": "554dd10d4db131d7",
+        "type": "mqtt in",
+        "z": "3df6adc1ab7c8928",
+        "name": "",
+        "topic": "/household/electricity/+",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "155a6ded3bdaa356",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 380,
+        "wires": [
+            [
+                "5975d8e41e194e12"
+            ]
+        ]
+    },
+    {
+        "id": "2f13a48adfa371ee",
+        "type": "function",
+        "z": "3df6adc1ab7c8928",
+        "name": "sensors",
+        "func": "var payload = msg.payload\nif(payload >= 75)\n{\nmsg.payload = \n{\n    food:payload,\n    location:msg.topic.split(\"/\")[2],\n    state:\"high\",\n    unit: \"ppm\",\n    sensor:msg.topic.split(\"/\")[3]\n}\n}\nif (payload < 75) {\n    msg.payload =\n    {\n        food:payload,\n        location: msg.topic.split(\"/\")[2],\n        state: \"normal\",\n        unit: \"ppm\",\n        sensor: msg.topic.split(\"/\")[3]\n    }\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 140,
+        "wires": [
+            [
+                "7fa88cd7e38743ca"
+            ]
+        ]
+    },
+    {
+        "id": "3ede4038373d75a4",
+        "type": "function",
+        "z": "3df6adc1ab7c8928",
+        "name": "sensors",
+        "func": "var payload = msg.payload\nif(payload >= 75)\n{\nmsg.payload = \n{\n    wastebin:payload,\n    location:msg.topic.split(\"/\")[2],\n    state:\"high\",\n    unit: \"ppm\",\n    sensor:msg.topic.split(\"/\")[3]\n}\n}\nif (payload < 75) {\n    msg.payload =\n    {\n        wastebin:payload,\n        location: msg.topic.split(\"/\")[2],\n        state: \"normal\",\n        unit: \"ppm\",\n        sensor: msg.topic.split(\"/\")[3]\n    }\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 200,
+        "wires": [
+            [
+                "7fa88cd7e38743ca"
+            ]
+        ]
+    },
+    {
+        "id": "8498be458603ac50",
+        "type": "function",
+        "z": "3df6adc1ab7c8928",
+        "name": "sensors",
+        "func": "var payload = msg.payload\nif(payload >= 75)\n{\nmsg.payload = \n{\n    water:payload,\n    location:msg.topic.split(\"/\")[2],\n    state:\"high\",\n    unit: \"ppm\",\n    sensor:msg.topic.split(\"/\")[3]\n}\n}\nif (payload < 75) {\n    msg.payload =\n    {\n        water:payload,\n        location: msg.topic.split(\"/\")[2],\n        state: \"normal\",\n        unit: \"ppm\",\n        sensor: msg.topic.split(\"/\")[3]\n    }\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 260,
+        "wires": [
+            [
+                "7fa88cd7e38743ca"
+            ]
+        ]
+    },
+    {
+        "id": "be9c0399cad36de1",
+        "type": "function",
+        "z": "3df6adc1ab7c8928",
+        "name": "sensors",
+        "func": "var payload = msg.payload\nif(payload >= 75)\n{\nmsg.payload = \n{\n    gas:payload,\n    location:msg.topic.split(\"/\")[2],\n    state:\"high\",\n    unit: \"ppm\",\n    sensor:msg.topic.split(\"/\")[3]\n}\n}\nif (payload < 75) {\n    msg.payload =\n    {\n        gas:payload,\n        location: msg.topic.split(\"/\")[2],\n        state: \"normal\",\n        unit: \"ppm\",\n        sensor: msg.topic.split(\"/\")[3]\n    }\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 320,
+        "wires": [
+            [
+                "7fa88cd7e38743ca"
+            ]
+        ]
+    },
+    {
+        "id": "5975d8e41e194e12",
+        "type": "function",
+        "z": "3df6adc1ab7c8928",
+        "name": "sensors",
+        "func": "var payload = msg.payload\nif(payload >= 75)\n{\nmsg.payload = \n{\n    electricity:payload,\n    location:msg.topic.split(\"/\")[2],\n    state:\"high\",\n    unit: \"ppm\",\n    sensor:msg.topic.split(\"/\")[3]\n}\n}\nif (payload < 75) {\n    msg.payload =\n    {\n        electricity:payload,\n        location: msg.topic.split(\"/\")[2],\n        state: \"normal\",\n        unit: \"ppm\",\n        sensor: msg.topic.split(\"/\")[3]\n    }\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 380,
+        "wires": [
+            [
+                "7fa88cd7e38743ca"
+            ]
+        ]
+    },
+    {
+        "id": "78dc5ad26a9fc42f",
+        "type": "influxdb out",
+        "z": "3df6adc1ab7c8928",
+        "influxdb": "f83650279ef0cbc3",
+        "name": "",
+        "measurement": "emissions",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "s",
+        "retentionPolicyV18Flux": "",
+        "org": "iot",
+        "bucket": "home",
+        "x": 740,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "c67bf1375222efaa",
+        "type": "function",
+        "z": "3df6adc1ab7c8928",
+        "name": "alarming",
+        "func": "var payload = msg.payload\nvar alarm_set = context.get(\"alarm_set\");\nif (typeof alarm_set==\"undefined\")\nalarm_set = false;\n\nif (payload>40 && ! alarm_set)\n{\n    alarm_set = true;\n    msg.alarm=1\n    context.set(\"alarm_set\",alarm_set);\n    return msg;\n\n}\nif (payload <= 40 && !alarm_set) {\n    alarm_set = false;\n    msg.alarm = 0\n    context.set(\"alarm_set\", alarm_set);\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 380,
+        "wires": [
+            [
+                "13bbf1f5211c6d2e"
+            ]
+        ]
+    },
+    {
+        "id": "13bbf1f5211c6d2e",
+        "type": "function",
+        "z": "3df6adc1ab7c8928",
+        "name": "formatting email",
+        "func": "var co2 =msg.payload;\nmsg.to=\"kokonsidibe@gmail.com\";\nmsg.from=\"noreply@gmail.com\";\nvar date = new Date();\nvar message=\"\";\nif (msg.alarm)\n{\n    msg.topic=\"CO2 notification\";\n    message=\" Co2 high concentration co2 =\"\n}\nelse\n{\n    message=\"co2 normalise, co2 = \";\n    msg.topic=\"co2 Reset\";\n}\nmsg.payload =\"time:\"+ date + message + msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 440,
+        "wires": [
+            [
+                "f24d361d699fe1b6"
+            ]
+        ]
+    },
+    {
+        "id": "f24d361d699fe1b6",
+        "type": "debug",
+        "z": "3df6adc1ab7c8928",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 740,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "155a6ded3bdaa356",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "172.0.0.100",
+        "port": "1884",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "f83650279ef0cbc3",
+        "type": "influxdb",
+        "hostname": "http://172.0.0.100",
+        "port": "8086",
+        "protocol": "http",
+        "database": "home",
+        "name": "",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "http://172.0.0.103:8086",
+        "rejectUnauthorized": true
+    }
+]
