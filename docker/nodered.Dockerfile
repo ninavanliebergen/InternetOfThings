@@ -1,4 +1,4 @@
-FROM nodered/node-red:2.0
+FROM nodered/node-red:2.0.2
 
 # Install additional Node-RED nodes
 RUN npm install node-red-contrib-influxdb
