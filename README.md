@@ -19,7 +19,8 @@ This code provides a technical framework for an application that continuously me
 ## How to start this project?
 1. Clone the code
 2. run: docker-compose up
-3. open nodered: http://localhost:1880 
-4. import the json flow to nodered
-5. run the python script on your local machine to simulate the sensors
-6. Have fun!
+3. restart all the 3 containers
+4. open nodered: http://localhost:1880 
+5. import the json flow to nodered
+6. run the python script on your local machine to simulate the sensors
+7. Have fun!
