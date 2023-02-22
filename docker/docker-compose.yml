@@ -12,7 +12,7 @@ services:
       - iot_network
 
   node-red:
-    image: nodered/node-red:2.0
+    image: nodered/node-red:2.0.2
     ports:
       - "1880:1880"
     volumes:
